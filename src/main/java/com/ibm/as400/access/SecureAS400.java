@@ -44,6 +44,12 @@ public class SecureAS400 extends AS400
      **/
     public static final int CLINT_TO_SERVER = 3;
 
+    public boolean isGuiAvailable()
+    {
+        return false; //should be substituted
+    }
+
+
     /**
      Constant indicating that encryption should be done in both the connection between the client and the proxy server and the connection between the proxy server and the system.
      **/

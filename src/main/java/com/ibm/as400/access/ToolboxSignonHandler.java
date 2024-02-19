@@ -65,8 +65,8 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
     AS400SecurityException exc = event.getException();
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) throw exc;  // do nothing, rethrow the exception
-
-    handleException(system, exc);
+    //  todo  should be removed by noGuiAvailable()
+//    handleException(system, exc);
   }
 
 
@@ -84,13 +84,15 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return true;  // do nothing, proceed with sign-on
+    //todo is the condition above correct???
+return true;
 
-    boolean response = displayMessage(ResourceBundleLoader.substitute(ResourceBundleLoader.getText("DLG_PASSWORD_EXP_WARNING"), Integer.toString(daysUntilExpiration)) + "  " + ResourceBundleLoader.getText("DLG_CHANGE_PASSWORD_PROMPT"), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"), true);
-    if (response)
-    {
-      handlePasswordChange(system); // tolerate cancellation of the password change
-    }
-    return true;  // do nothing, proceed with sign-on
+//    boolean response = displayMessage(ResourceBundleLoader.substitute(ResourceBundleLoader.getText("DLG_PASSWORD_EXP_WARNING"), Integer.toString(daysUntilExpiration)) + "  " + ResourceBundleLoader.getText("DLG_CHANGE_PASSWORD_PROMPT"), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"), true);
+//    if (response)
+//    {
+//      handlePasswordChange(system); // tolerate cancellation of the password change
+//    }
+//    return true;  // do nothing, proceed with sign-on
   }
 
 
@@ -107,17 +109,19 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-
-    // See if user wants to change password.
-    boolean response = displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_EXPIRED") + "\n" + ResourceBundleLoader.getText("DLG_CHANGE_PASSWORD_PROMPT"), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"), true);
-    if (response)  // User wants to change password.
-    {
-      return handlePasswordChange(system);
-    }
-    else  // User canceled the password change.
-    {
-      return false;
-    }
+//
+//    // See if user wants to change password.
+//    boolean response = displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_EXPIRED") + "\n" + ResourceBundleLoader.getText("DLG_CHANGE_PASSWORD_PROMPT"), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"), true);
+//    if (response)  // User wants to change password.
+//    {
+//      return handlePasswordChange(system);
+//    }
+//    else  // User canceled the password change.
+//    {
+//      return false;
+//    }
+    //should cover subst gui
+    return false;
   }
 
 
@@ -133,9 +137,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_INCORRECT"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_INCORRECT"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -151,9 +157,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_LENGTH_NOT_VALID"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+//    should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_LENGTH_NOT_VALID"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -169,9 +177,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_PASSWORD"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return connectionInitiated(event, true);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_PASSWORD"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return connectionInitiated(event, true);
   }
 
 
@@ -187,9 +197,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_USERID"), // generic MRI
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, true);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_USERID"), // generic MRI
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, true);
   }
 
 
@@ -208,9 +220,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_INCORRECT_USERID_DISABLE"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("EXC_PASSWORD_INCORRECT_USERID_DISABLE"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -245,9 +259,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_USERID_DISABLE"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("EXC_USERID_DISABLE"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -263,9 +279,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_USERID_LENGTH_NOT_VALID"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("EXC_USERID_LENGTH_NOT_VALID"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -281,9 +299,11 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_USERID"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+//    displayMessage(ResourceBundleLoader.getText("DLG_MISSING_USERID"),
+//                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -293,15 +313,17 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
    @param event The sign-on event.
    @return true if user clicks OK, false if user clicks Cancel.
    **/
-  public boolean userIdUnknown(SignonEvent event)
-  {
+  public boolean userIdUnknown(SignonEvent event)  {
     if (DEBUG) System.out.println("ToolboxSignonHandler.userIdUnknown()");
 
     AS400 system = (AS400)event.getSource();
     if (!system.isGuiAvailable()) return noGuiAvailable();
-    displayMessage(ResourceBundleLoader.getText("EXC_USERID_UNKNOWN"),
-                   ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-    return handleSignon(system, true, false);
+    //  todo  should be removed by noGuiAvailable()
+    return false;
+
+//    displayMessage(ResourceBundleLoader.getText("EXC_USERID_UNKNOWN"),
+//            ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//    return handleSignon(system, true, false);
   }
 
 
@@ -486,74 +508,74 @@ final class ToolboxSignonHandler extends SignonHandlerAdapter
     {
       return true;  // assume all the needed info is there
     }
-
-    if (system.isGuiAvailable())
-    {
-      if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Signing-on with prompting turned on.");
-      boolean done = false;
-      do
-      {
-        PasswordDialog pd = setupPasswordDialog(system);
-        if (enableSystemNameField) pd.enableSystemNameField();
-
-        if (!pd.prompt()) { // user canceled
-          return false;
-        }
-
-        // Note: The PasswordDialog getters never return null.
-        String systemName = pd.getSystemName().trim();
-        String userId = pd.getUserId().trim().toUpperCase();
-        String password = pd.getPassword();
-
-        if (validateInfo(systemName, userId, password, system))
-        {
-          try
-          {
-            systemName_ = systemName;
-            system.setSystemName(systemName_);
-            if (userId.length() != 0) {
-              userId_ = userId;
-              system.setUserId(userId_);
-            }
-            if (password.length() != 0) system.setPassword(password);
-
-            // Check to see if we should set the default user.
-            // Design note: There's a slight usability exposure here, in the event that an erroneous userID is specified.  Then that userID gets set as the default user.  To reset it, the app must first call AS400.removeDefaultUser().
-            if (pd.getDefaultState() && userId_.length() != 0)
-            {
-              if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Setting default user from dialog...");
-              // Set the default user.
-              if (!AS400.setDefaultUser(systemName_, userId_))
-              {
-                if (Trace.traceOn_) Trace.log(Trace.WARNING, "Failed to set default user.");
-                if (system.isGuiAvailable())
-                {
-                  displayMessage(ResourceBundleLoader.getText("DLG_DEFAULT_USER_EXISTS") + "\n\n" + ResourceBundleLoader.getText("DLG_SET_DEFAULT_USER_FAILED"),
-                                 ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-                }
-              }
-            }
-
-            // Also see if the AS400 should use the cached password.
-            if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Setting password cache entry from dialog...");
-            system.setUsePasswordCache(pd.getPasswordCacheState());
-
-            done = true;  // if we got this far, we're good to go
-          }
-          catch (PropertyVetoException e) {
-            displayMessage(e.getMessage(), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
-            return handleSignon(system, forceUpdate, enableSystemNameField);
-          }
-        }
-
-      } while (!done);
-    }
-    else  // no GUI available
-    {
+//shouldn;t be required
+//    if (system.isGuiAvailable())
+//    {
+//      if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Signing-on with prompting turned on.");
+//      boolean done = false;
+//      do
+//      {
+//        PasswordDialog pd = setupPasswordDialog(system);
+//        if (enableSystemNameField) pd.enableSystemNameField();
+//
+//        if (!pd.prompt()) { // user canceled
+//          return false;
+//        }
+//
+//        // Note: The PasswordDialog getters never return null.
+//        String systemName = pd.getSystemName().trim();
+//        String userId = pd.getUserId().trim().toUpperCase();
+//        String password = pd.getPassword();
+//
+//        if (validateInfo(systemName, userId, password, system))
+//        {
+//          try
+//          {
+//            systemName_ = systemName;
+//            system.setSystemName(systemName_);
+//            if (userId.length() != 0) {
+//              userId_ = userId;
+//              system.setUserId(userId_);
+//            }
+//            if (password.length() != 0) system.setPassword(password);
+//
+//            // Check to see if we should set the default user.
+//            // Design note: There's a slight usability exposure here, in the event that an erroneous userID is specified.  Then that userID gets set as the default user.  To reset it, the app must first call AS400.removeDefaultUser().
+//            if (pd.getDefaultState() && userId_.length() != 0)
+//            {
+//              if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Setting default user from dialog...");
+//              // Set the default user.
+//              if (!AS400.setDefaultUser(systemName_, userId_))
+//              {
+//                if (Trace.traceOn_) Trace.log(Trace.WARNING, "Failed to set default user.");
+//                if (system.isGuiAvailable())
+//                {
+//                  displayMessage(ResourceBundleLoader.getText("DLG_DEFAULT_USER_EXISTS") + "\n\n" + ResourceBundleLoader.getText("DLG_SET_DEFAULT_USER_FAILED"),
+//                                 ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//                }
+//              }
+//            }
+//
+//            // Also see if the AS400 should use the cached password.
+//            if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Setting password cache entry from dialog...");
+//            system.setUsePasswordCache(pd.getPasswordCacheState());
+//
+//            done = true;  // if we got this far, we're good to go
+//          }
+//          catch (PropertyVetoException e) {
+//            displayMessage(e.getMessage(), ResourceBundleLoader.getText("DLG_SIGNON_TITLE"));
+//            return handleSignon(system, forceUpdate, enableSystemNameField);
+//          }
+//        }
+//
+//      } while (!done);
+//    }
+//    else  // no GUI available
+//    {
       // Just return true.  Let the caller validate it.
       // If anything necessary is missing, they will call our handleEvent() method.
       if (Trace.traceOn_) Trace.log(Trace.INFORMATION, "No GUI is available to sign-on handler.");
-    }
+//    }
     return true;
   }
 

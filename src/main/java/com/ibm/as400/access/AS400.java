@@ -153,7 +153,7 @@ public class AS400 implements Serializable, AutoCloseable
     static Class defaultSignonHandlerClass_ = ToolboxSignonHandler.class;
     static SignonHandler defaultSignonHandler_;
     // Default setting for guiAvailable property.
-    private static boolean defaultGuiAvailable_ = true;
+    private static boolean defaultGuiAvailable_ = false;
     // Default setting for mustAddLanguageLibrary property.
     private static boolean defaultMustAddLanguageLibrary_ = false;
     // Default setting for mustUseSockets property.
@@ -2225,15 +2225,17 @@ public class AS400 implements Serializable, AutoCloseable
      */
     public boolean isInPasswordExpirationWarningDays()
             throws AS400SecurityException, IOException {
-        if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Checking if within the password expiration warning days for the system. " );
-
-        chooseImpl();
-        signon(false);
-
-        boolean warn = getDaysToExpiration() <= getSystemPasswordExpirationWarningDays();
-        if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "In password expiration warning days: " + warn);
-
-        return warn;
+//        if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Checking if within the password expiration warning days for the system. " );
+//
+//        chooseImpl();
+//        signon(false);
+//
+//        boolean warn = getDaysToExpiration() <= getSystemPasswordExpirationWarningDays();
+//        if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "In password expiration warning days: " + warn);
+//
+//        return warn;
+//should be substituted
+        return false;
     }
 
     /**
@@ -3030,8 +3032,7 @@ public class AS400 implements Serializable, AutoCloseable
      **/
     public boolean isGuiAvailable()
     {
-        if (Trace.traceOn_) Trace.log(Trace.DIAGNOSTIC, "Checking if GUI is available:", guiAvailable_);
-        return guiAvailable_;
+        return false; //should be substituted
     }
 
     /**
